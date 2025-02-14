@@ -1,0 +1,175 @@
+[gd_scene load_steps=12 format=4 uid="uid://brlji35ivitew"]
+
+[ext_resource type="TileSet" uid="uid://b2gkxfodiww6e" path="res://resources/DrAlchemistSpritesheet.tres" id="1_aohd4"]
+[ext_resource type="Script" path="res://scripts/World.gd" id="1_ewm4p"]
+[ext_resource type="PackedScene" uid="uid://c6kn3uxwqh47o" path="res://scenes/player.tscn" id="2_xyll0"]
+[ext_resource type="PackedScene" uid="uid://b2yw5nks1agiv" path="res://scenes/plate.tscn" id="4_7ynjl"]
+[ext_resource type="PackedScene" uid="uid://n7iddevt4pub" path="res://scenes/garbage_crate.tscn" id="5_bp0o1"]
+[ext_resource type="PackedScene" uid="uid://disyrefo5vgbt" path="res://scenes/crate.tscn" id="5_vde8v"]
+[ext_resource type="PackedScene" uid="uid://b53l5akuugixq" path="res://scenes/distillery.tscn" id="7_281sf"]
+[ext_resource type="PackedScene" uid="uid://5wsn05qqgmex" path="res://scenes/grinder.tscn" id="7_a6uut"]
+[ext_resource type="Script" path="res://scripts/FPSLabel.gd" id="8_5gut6"]
+[ext_resource type="PackedScene" uid="uid://mc5offyj85y8" path="res://scenes/energy_extractor.tscn" id="8_spgs5"]
+[ext_resource type="PackedScene" uid="uid://dc4ernrptw40u" path="res://scenes/cauldron.tscn" id="9_sb7pp"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_ewm4p")
+
+[node name="Ground" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAEAAAAAAAIAAQAAAAEAAAAAAAMAAQAAAAEAAAAAAAQAAQAAAAEAAAAAAAUAAQAAAAEAAAABAAUAAQABAAEAAAACAAUAAQACAAEAAAADAAUAAQAAAAEAAAAEAAUAAQABAAEAAAAFAAUAAQABAAEAAAAGAAUAAQABAAEAAAAJAAUAAQABAAEAAAAJAAAAAQABAAUAAAAJAAQAAQABAAEAAAAJAAMAAQABAAEAAAAJAAIAAQABAAEAAAAJAAEAAQABAAEAAAABAAAAAQABAAAAAAACAAAAAQACAAAAAAAEAAAAAQABAAUAAAAFAAAAAQABAAUAAAAGAAAAAQABAAUAAAAHAAAAAQABAAUAAAAIAAAAAQABAAUAAAACAAEAAQACAAEAAAACAAIAAQACAAEAAAADAAIAAQAAAAEAAAAFAAMAAQABAAEAAAAGAAMAAQABAAEAAAAHAAMAAQABAAEAAAAIAAMAAQABAAEAAAAGAAQAAQABAAEAAAAFAAQAAQABAAEAAAAEAAQAAQABAAEAAAADAAQAAQAAAAEAAAACAAQAAQACAAEAAAABAAQAAQABAAEAAAABAAMAAQABAAEAAAABAAIAAQABAAEAAAACAAMAAQACAAEAAAADAAMAAQAAAAEAAAAEAAMAAQABAAEAAAAEAAEAAQABAAEAAAADAAEAAQAAAAEAAAAFAAEAAQABAAEAAAAGAAIAAQABAAEAAAAGAAEAAQABAAEAAAAHAAEAAQABAAEAAAAHAAIAAQABAAEAAAAIAAIAAQABAAEAAAAIAAEAAQABAAEAAAAAAAYAAQAAAAEAAAAAAAcAAQAAAAEAAAAAAAgAAQAAAAEAAAAAAAkAAQAAAAEAAAABAAkAAQABAAEAAAABAAgAAQABAAEAAAABAAcAAQABAAEAAAABAAYAAQABAAEAAAACAAYAAQACAAEAAAACAAcAAQACAAEAAAACAAgAAQACAAEAAAACAAkAAQACAAEAAAADAAYAAQAAAAEAAAADAAcAAQAAAAEAAAADAAgAAQAAAAEAAAADAAkAAQAAAAEAAAAEAAYAAQABAAEAAAAEAAcAAQABAAEAAAAEAAgAAQABAAEAAAAEAAkAAQABAAEAAAAFAAYAAQABAAEAAAAFAAcAAQABAAEAAAAFAAgAAQABAAEAAAAFAAkAAQABAAEAAAAGAAYAAQABAAEAAAAGAAcAAQABAAEAAAAGAAgAAQABAAEAAAAGAAkAAQABAAEAAAAJAAYAAQABAAEAAAAJAAcAAQABAAEAAAAJAAgAAQABAAEAAAAJAAkAAQABAAEAAAAKAAEAAQABAAEAAAAKAAIAAQABAAEAAAAKAAMAAQABAAEAAAAKAAQAAQABAAEAAAAKAAUAAQABAAEAAAAKAAYAAQABAAEAAAAKAAcAAQABAAEAAAAKAAgAAQABAAEAAAAKAAkAAQABAAEAAAALAAEAAQABAAEAAAALAAIAAQABAAEAAAALAAMAAQABAAEAAAAMAAEAAQABAAEAAAAMAAIAAQABAAEAAAAMAAMAAQABAAEAAAANAAEAAQABAAEAAAANAAIAAQABAAEAAAANAAMAAQABAAEAAAAOAAEAAQABAAEAAAAOAAIAAQABAAEAAAAOAAMAAQABAAEAAAAPAAEAAQABAAEAAAAPAAIAAQABAAEAAAAPAAMAAQABAAEAAAAQAAEAAQABAAEAAAAQAAIAAQABAAEAAAAQAAMAAQABAAEAAAARAAEAAQABAAEAAAARAAIAAQABAAEAAAARAAMAAQABAAEAAAARAAQAAQABAAEAAAARAAUAAQABAAEAAAARAAYAAQABAAEAAAARAAcAAQABAAEAAAARAAgAAQABAAEAAAARAAkAAQABAAEAAAASAAEAAQABAAEAAAASAAIAAQABAAEAAAASAAMAAQABAAEAAAASAAQAAQABAAEAAAASAAUAAQABAAEAAAASAAYAAQABAAEAAAASAAcAAQABAAEAAAASAAgAAQABAAEAAAASAAkAAQABAAEAAAATAAAAAQACAAUAAAATAAEAAQACAAAAAAATAAIAAQACAAEAAAATAAMAAQACAAEAAAATAAQAAQACAAEAAAATAAUAAQACAAEAAAATAAYAAQACAAEAAAATAAcAAQACAAEAAAATAAgAAQACAAEAAAATAAkAAQACAAEAAAAKAAAAAQABAAUAAAALAAAAAQABAAUAAAAMAAAAAQABAAUAAAANAAAAAQABAAUAAAAOAAAAAQABAAUAAAAPAAAAAQABAAUAAAAQAAAAAQABAAUAAAARAAAAAQABAAUAAAASAAAAAQABAAUAAAADAAAAAQAAAAUAAAAQAAQAAQABAAEAAAAQAAUAAQABAAEAAAAQAAYAAQABAAEAAAAQAAcAAQABAAEAAAAQAAgAAQABAAEAAAAQAAkAAQABAAEAAAAIAAQAAQABAAEAAAAIAAUAAQABAAEAAAAIAAYAAQABAAEAAAAIAAcAAQABAAEAAAAIAAgAAQABAAEAAAAIAAkAAQABAAEAAAAHAAQAAQABAAEAAAALAAQAAQABAAEAAAAMAAQAAQABAAEAAAANAAQAAQABAAEAAAAOAAQAAQABAAEAAAAPAAQAAQABAAEAAAAPAAUAAQABAAEAAAAOAAUAAQABAAEAAAANAAUAAQABAAEAAAAMAAUAAQABAAEAAAALAAUAAQABAAEAAAAHAAUAAQABAAEAAAAHAAYAAQABAAEAAAALAAYAAQABAAEAAAAMAAYAAQABAAEAAAANAAYAAQABAAEAAAAOAAYAAQABAAEAAAAPAAYAAQABAAEAAAAPAAgAAQABAAEAAAAOAAcAAQABAAEAAAANAAcAAQABAAEAAAAMAAcAAQABAAEAAAALAAcAAQABAAEAAAAHAAcAAQABAAEAAAAHAAgAAQABAAEAAAAHAAkAAQABAAEAAAALAAgAAQABAAEAAAALAAkAAQABAAEAAAAMAAgAAQABAAEAAAAMAAkAAQABAAEAAAANAAgAAQABAAEAAAANAAkAAQABAAEAAAAOAAgAAQABAAEAAAAOAAkAAQABAAEAAAAPAAcAAQABAAEAAAAPAAkAAQABAAEAAAABAAEAAQABAAEAAAAAAAoAAQAAAAEAAAABAAoAAQABAAEAAAACAAoAAQACAAEAAAADAAoAAQAAAAEAAAAEAAoAAQABAAEAAAAFAAoAAQABAAEAAAAGAAoAAQABAAEAAAAHAAoAAQABAAEAAAAIAAoAAQABAAEAAAAJAAoAAQABAAEAAAAKAAoAAQABAAEAAAALAAoAAQABAAEAAAAMAAoAAQABAAEAAAANAAoAAQABAAEAAAAOAAoAAQABAAEAAAAPAAoAAQABAAEAAAAQAAoAAQABAAEAAAARAAoAAQABAAEAAAASAAoAAQABAAEAAAATAAoAAQACAAEAAAAEAAIAAQABAAEAAAAFAAIAAQABAAEAAAAAAAwAAQAAAAIAAAABAAwAAQABAAIAAAACAAwAAQACAAIAAAADAAwAAQAAAAIAAAAEAAwAAQABAAIAAAAFAAwAAQABAAIAAAAGAAwAAQABAAIAAAAHAAwAAQABAAIAAAAIAAwAAQABAAIAAAAJAAwAAQABAAIAAAAKAAwAAQABAAIAAAALAAwAAQABAAIAAAAMAAwAAQABAAIAAAANAAwAAQABAAIAAAAOAAwAAQABAAIAAAAPAAwAAQABAAIAAAAQAAwAAQABAAIAAAARAAwAAQABAAIAAAASAAwAAQABAAIAAAATAAwAAQACAAIAAAAAAAsAAQAAAAEAAAABAAsAAQABAAEAAAACAAsAAQACAAEAAAADAAsAAQAAAAEAAAAEAAsAAQABAAEAAAAFAAsAAQABAAEAAAAGAAsAAQABAAEAAAAHAAsAAQABAAEAAAAIAAsAAQABAAEAAAAJAAsAAQABAAEAAAAKAAsAAQABAAEAAAALAAsAAQABAAEAAAAMAAsAAQABAAEAAAANAAsAAQABAAEAAAAOAAsAAQABAAEAAAAPAAsAAQABAAEAAAAQAAsAAQABAAEAAAARAAsAAQABAAEAAAASAAsAAQABAAEAAAATAAsAAQACAAEAAAA=")
+tile_set = ExtResource("1_aohd4")
+
+[node name="Accessories" type="TileMapLayer" parent="."]
+use_parent_material = true
+position = Vector2(0, 1)
+tile_map_data = PackedByteArray("AAADAAgAAQADAAQAAAADAAkAAQADAAQAAAADAAcAAQADAAMAAAAGAAEAAQAAAAQAAAAGAAUAAQADAAMAAAAGAAYAAQADAAQAAAAHAAEAAQABAAQAAAAIAAEAAQABAAQAAAAJAAEAAQABAAQAAAAJAAUAAQADAAMAAAAJAAYAAQADAAQAAAAJAAcAAQADAAQAAAAKAAEAAQABAAQAAAALAAEAAQABAAQAAAAMAAEAAQABAAQAAAAMAAUAAQADAAMAAAAMAAYAAQADAAQAAAAMAAcAAQADAAQAAAANAAEAAQABAAQAAAAOAAEAAQABAAQAAAAPAAEAAQABAAQAAAAQAAEAAQABAAQAAAARAAEAAQABAAQAAAASAAEAAQACAAQAAAAGAAIAAQAAAAUAAAAHAAIAAQABAAUAAAAIAAIAAQABAAUAAAAJAAIAAQABAAUAAAAKAAIAAQABAAUAAAALAAIAAQABAAUAAAAMAAIAAQABAAUAAAANAAIAAQABAAUAAAAOAAIAAQABAAUAAAAPAAIAAQABAAUAAAAQAAIAAQABAAUAAAARAAIAAQABAAUAAAASAAIAAQACAAUAAAADAAsAAQADAAUAAAAGAAcAAQADAAQAAAADAAoAAQADAAQAAAAGAAkAAQADAAUAAAAJAAkAAQADAAUAAAAMAAkAAQADAAUAAAAGAAgAAQADAAQAAAAJAAgAAQADAAQAAAAMAAgAAQADAAQAAAAPAAUAAQADAAMAAAAPAAYAAQADAAQAAAAPAAcAAQADAAQAAAAPAAgAAQADAAQAAAAPAAkAAQADAAUAAAASAAUAAQADAAMAAAASAAYAAQADAAQAAAASAAcAAQADAAQAAAASAAgAAQADAAQAAAASAAkAAQADAAUAAAA=")
+tile_set = ExtResource("1_aohd4")
+
+[node name="Stations" type="Node2D" parent="."]
+position = Vector2(416, 64)
+
+[node name="Plates" type="Node2D" parent="Stations"]
+
+[node name="Plate" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(0, 64)
+
+[node name="Plate2" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(96, 64)
+
+[node name="Plate3" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(192, 64)
+
+[node name="Plate4" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(288, 64)
+
+[node name="Plate5" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(384, 64)
+
+[node name="Plate6" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(480, 64)
+
+[node name="Plate7" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(576, 64)
+
+[node name="Plate8" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(672, 64)
+
+[node name="Plate9" parent="Stations/Plates" instance=ExtResource("4_7ynjl")]
+position = Vector2(768, 64)
+
+[node name="Crates" type="Node2D" parent="Stations"]
+
+[node name="Crate" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(32, 704)
+item_id = 1
+
+[node name="Crate2" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(96, 704)
+item_id = 2
+
+[node name="Crate3" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(160, 704)
+item_id = 3
+
+[node name="Crate4" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(224, 704)
+item_id = 4
+
+[node name="Crate5" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(288, 704)
+item_id = 5
+
+[node name="Crate6" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(352, 704)
+item_id = 6
+
+[node name="Crate7" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(416, 704)
+item_id = 7
+
+[node name="Crate8" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(480, 704)
+item_id = 8
+
+[node name="Crate9" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(544, 704)
+item_id = 9
+
+[node name="Crate10" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(608, 704)
+item_id = 10
+
+[node name="Crate11" parent="Stations/Crates" instance=ExtResource("5_vde8v")]
+position = Vector2(672, 704)
+item_id = 11
+
+[node name="GarbageCrate" parent="Stations/Crates" instance=ExtResource("5_bp0o1")]
+position = Vector2(736, 704)
+interactable_type = 2
+
+[node name="Grinders" type="Node2D" parent="Stations"]
+
+[node name="Grinder" parent="Stations/Grinders" instance=ExtResource("7_a6uut")]
+position = Vector2(0, 288)
+
+[node name="Grinder2" parent="Stations/Grinders" instance=ExtResource("7_a6uut")]
+position = Vector2(0, 384)
+
+[node name="Grinder3" parent="Stations/Grinders" instance=ExtResource("7_a6uut")]
+position = Vector2(0, 480)
+
+[node name="Distilleries" type="Node2D" parent="Stations"]
+
+[node name="Grinder" parent="Stations/Distilleries" instance=ExtResource("7_281sf")]
+position = Vector2(192, 288)
+
+[node name="Grinder2" parent="Stations/Distilleries" instance=ExtResource("7_281sf")]
+position = Vector2(192, 384)
+
+[node name="Grinder3" parent="Stations/Distilleries" instance=ExtResource("7_281sf")]
+position = Vector2(192, 480)
+
+[node name="EnergyExtractors" type="Node2D" parent="Stations"]
+
+[node name="EnergyExtractor" parent="Stations/EnergyExtractors" instance=ExtResource("8_spgs5")]
+position = Vector2(384, 288)
+
+[node name="EnergyExtractor2" parent="Stations/EnergyExtractors" instance=ExtResource("8_spgs5")]
+position = Vector2(384, 384)
+
+[node name="EnergyExtractor3" parent="Stations/EnergyExtractors" instance=ExtResource("8_spgs5")]
+position = Vector2(384, 480)
+
+[node name="Cauldrons" type="Node2D" parent="Stations"]
+
+[node name="Cauldron" parent="Stations/Cauldrons" instance=ExtResource("9_sb7pp")]
+position = Vector2(576, 288)
+
+[node name="Cauldron2" parent="Stations/Cauldrons" instance=ExtResource("9_sb7pp")]
+position = Vector2(576, 384)
+
+[node name="Cauldron3" parent="Stations/Cauldrons" instance=ExtResource("9_sb7pp")]
+position = Vector2(576, 480)
+
+[node name="Cauldron4" parent="Stations/Cauldrons" instance=ExtResource("9_sb7pp")]
+position = Vector2(768, 288)
+
+[node name="Cauldron5" parent="Stations/Cauldrons" instance=ExtResource("9_sb7pp")]
+position = Vector2(768, 384)
+
+[node name="Cauldron6" parent="Stations/Cauldrons" instance=ExtResource("9_sb7pp")]
+position = Vector2(768, 480)
+
+[node name="Player1" parent="." instance=ExtResource("2_xyll0")]
+position = Vector2(256, 128)
+
+[node name="Player2" parent="." instance=ExtResource("2_xyll0")]
+position = Vector2(320, 128)
+player_id = 1
+
+[node name="FPS" type="Label" parent="."]
+visible = false
+offset_right = 128.0
+offset_bottom = 64.0
+script = ExtResource("8_5gut6")

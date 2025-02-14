@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6kn3uxwqh47o"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_kvilx"]
+[ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="2_t6o2d"]
+[ext_resource type="Script" path="res://scripts/PlayerSprite.gd" id="3_2kgec"]
+[ext_resource type="PackedScene" uid="uid://bok265y4iiu2w" path="res://scenes/item.tscn" id="4_eb2vf"]
+[ext_resource type="Script" path="res://scripts/PlayerInteraction.gd" id="5_ih77u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_627ka"]
+atlas = ExtResource("2_t6o2d")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7vcg"]
+size = Vector2(40, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0uhss"]
+
+[sub_resource type="Gradient" id="Gradient_5nwpv"]
+colors = PackedColorArray(0, 0, 0, 0.494118, 0, 0, 0, 0.494118)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tncwe"]
+gradient = SubResource("Gradient_5nwpv")
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_kvilx")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = SubResource("AtlasTexture_627ka")
+script = ExtResource("3_2kgec")
+spritesheet = ExtResource("2_t6o2d")
+
+[node name="PlayerCollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_n7vcg")
+
+[node name="HandHitbox" type="Area2D" parent="." groups=["player_hands"]]
+metadata/interacting = false
+
+[node name="HitboxShape" type="CollisionShape2D" parent="HandHitbox"]
+shape = SubResource("RectangleShape2D_0uhss")
+
+[node name="Item" parent="HandHitbox" instance=ExtResource("4_eb2vf")]
+
+[node name="DebugSprite" type="Sprite2D" parent="HandHitbox"]
+visible = false
+scale = Vector2(0.078125, 20)
+texture = SubResource("GradientTexture1D_tncwe")
+
+[node name="InteractionComponent" type="Node" parent="." groups=["player_interaction"]]
+script = ExtResource("5_ih77u")

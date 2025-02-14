@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7pya4gicv7ra"]
+
+[ext_resource type="Script" path="res://scripts/TitleScreen.gd" id="1_40k4u"]
+
+[sub_resource type="Gradient" id="Gradient_xo1e7"]
+offsets = PackedFloat32Array(0.12963, 0.856481)
+colors = PackedColorArray(0.0741, 0.20046, 0.39, 1, 0.3195, 0.4757, 0.71, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d76y1"]
+noise_type = 5
+frequency = 0.001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gosn8"]
+color_ramp = SubResource("Gradient_xo1e7")
+noise = SubResource("FastNoiseLite_d76y1")
+
+[sub_resource type="LabelSettings" id="LabelSettings_k1n2n"]
+font_size = 56
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_hgatn"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_40k4u")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_gosn8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -102.0
+offset_right = 281.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Doctor Alchemist
+"
+label_settings = SubResource("LabelSettings_k1n2n")
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Play"
+icon = SubResource("Texture2DRD_hgatn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="ControlButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Controls"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ControlButton" to="." method="_on_control_button_pressed"]

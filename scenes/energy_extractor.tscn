@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://mc5offyj85y8"]
+
+[ext_resource type="Script" path="res://scripts/Interactable.gd" id="1_363hr"]
+[ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="2_qyf5q"]
+[ext_resource type="PackedScene" uid="uid://bok265y4iiu2w" path="res://scenes/item.tscn" id="3_tdiuo"]
+[ext_resource type="Script" path="res://scripts/EnergyExtractor.gd" id="4_5bs0g"]
+[ext_resource type="Script" path="res://scripts/StationProgressBar.gd" id="5_l4sn3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64l4r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oaxqo"]
+atlas = ExtResource("2_qyf5q")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="Gradient" id="Gradient_yhn2w"]
+colors = PackedColorArray(0, 0, 0, 0.494118, 0, 0, 0, 0.494118)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_66gbq"]
+gradient = SubResource("Gradient_yhn2w")
+
+[node name="EnergyExtractor" type="Area2D" groups=["interactables"]]
+texture_filter = 1
+script = ExtResource("1_363hr")
+interactable_type = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3.2, 3.2)
+shape = SubResource("RectangleShape2D_64l4r")
+
+[node name="EnergyExtractorSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_oaxqo")
+
+[node name="Item" parent="." instance=ExtResource("3_tdiuo")]
+
+[node name="DebugSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(0.25, 64)
+texture = SubResource("GradientTexture1D_66gbq")
+
+[node name="Logic" type="Node" parent="."]
+script = ExtResource("4_5bs0g")
+
+[node name="Timer" type="Timer" parent="Logic"]
+process_callback = 0
+wait_time = 4.0
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -29.0
+offset_top = 12.0
+offset_right = 29.0
+offset_bottom = 29.0
+max_value = 1.0
+show_percentage = false
+script = ExtResource("5_l4sn3")

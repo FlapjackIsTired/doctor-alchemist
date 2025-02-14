@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bok265y4iiu2w"]
+
+[ext_resource type="Script" path="res://scripts/Item.gd" id="1_h8sa1"]
+[ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="2_ulb60"]
+
+[node name="Item" type="Node2D"]
+script = ExtResource("1_h8sa1")
+spritesheet = ExtResource("2_ulb60")
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+texture_filter = 1

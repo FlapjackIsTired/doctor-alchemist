@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://n7iddevt4pub"]
+
+[ext_resource type="Script" path="res://scripts/Interactable.gd" id="1_y7xic"]
+[ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="2_j00nn"]
+[ext_resource type="PackedScene" uid="uid://bok265y4iiu2w" path="res://scenes/item.tscn" id="3_upe43"]
+[ext_resource type="Script" path="res://scripts/GarbageCrate.gd" id="4_2d488"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf3dc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64l4r"]
+size = Vector2(20, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gqvp"]
+atlas = ExtResource("2_j00nn")
+region = Rect2(320, 288, 64, 96)
+
+[sub_resource type="Gradient" id="Gradient_yhn2w"]
+colors = PackedColorArray(0, 0, 0, 0.494118, 0, 0, 0, 0.494118)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_66gbq"]
+gradient = SubResource("Gradient_yhn2w")
+
+[node name="GarbageCrate" type="Area2D" groups=["interactables"]]
+script = ExtResource("1_y7xic")
+interactable_type = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.8147e-06)
+scale = Vector2(3.2, 3.2)
+shape = SubResource("RectangleShape2D_pf3dc")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
+position = Vector2(0, 16)
+scale = Vector2(3.2, 3.2)
+shape = SubResource("RectangleShape2D_64l4r")
+
+[node name="GarbageCrateSprite" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(0, 16)
+texture = SubResource("AtlasTexture_8gqvp")
+
+[node name="DebugSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(0.25, 64)
+texture = SubResource("GradientTexture1D_66gbq")
+
+[node name="Item" parent="." instance=ExtResource("3_upe43")]
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(0.25, 64)
+
+[node name="GarbageCrateLogic" type="Node" parent="."]
+script = ExtResource("4_2d488")

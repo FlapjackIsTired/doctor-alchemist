@@ -1,0 +1,114 @@
+[gd_scene load_steps=9 format=3 uid="uid://cyyse3h0anxmv"]
+
+[ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="1_twuav"]
+[ext_resource type="Script" path="res://scripts/ControlPage.gd" id="1_uibj8"]
+
+[sub_resource type="Gradient" id="Gradient_n8gqx"]
+offsets = PackedFloat32Array(0.12963, 0.856481)
+colors = PackedColorArray(0.0741, 0.20046, 0.39, 1, 0.3195, 0.4757, 0.71, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w46ra"]
+noise_type = 5
+frequency = 0.001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vuqh8"]
+color_ramp = SubResource("Gradient_n8gqx")
+noise = SubResource("FastNoiseLite_w46ra")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdm53"]
+atlas = ExtResource("1_twuav")
+region = Rect2(384, 192, 192, 128)
+
+[sub_resource type="LabelSettings" id="LabelSettings_haeg0"]
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb1jb"]
+atlas = ExtResource("1_twuav")
+region = Rect2(576, 192, 192, 128)
+
+[node name="ControlPage" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uibj8")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_vuqh8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -141.5
+offset_bottom = 141.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerVBox1" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 32
+
+[node name="Controls" type="TextureRect" parent="HBoxContainer/PlayerVBox1"]
+custom_minimum_size = Vector2(384, 256)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = SubResource("AtlasTexture_tdm53")
+
+[node name="Label" type="Label" parent="HBoxContainer/PlayerVBox1"]
+layout_mode = 2
+text = "Q = Interact
+W = Move Up
+A = Move Left
+S = Move Down
+D = Move Right"
+label_settings = SubResource("LabelSettings_haeg0")
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerVBox2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 32
+
+[node name="Controls" type="TextureRect" parent="HBoxContainer/PlayerVBox2"]
+custom_minimum_size = Vector2(384, 256)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = SubResource("AtlasTexture_mb1jb")
+
+[node name="Label" type="Label" parent="HBoxContainer/PlayerVBox2"]
+layout_mode = 2
+text = "U = Interact
+I = Move Up
+J = Move Left
+K = Move Down
+L = Move Right"
+label_settings = SubResource("LabelSettings_haeg0")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 170.0
+offset_bottom = 80.0
+text = "Back"
+
+[connection signal="pressed" from="Button" to="." method="_on_back_button_pressed"]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2yw5nks1agiv"]
+
+[ext_resource type="Script" path="res://scripts/Interactable.gd" id="1_37khj"]
+[ext_resource type="Script" path="res://scripts/Plate.gd" id="2_e1rp4"]
+[ext_resource type="PackedScene" uid="uid://bok265y4iiu2w" path="res://scenes/item.tscn" id="3_fsu8i"]
+[ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="4_kc47x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64l4r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oaxqo"]
+atlas = ExtResource("4_kc47x")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="Gradient" id="Gradient_yhn2w"]
+colors = PackedColorArray(0, 0, 0, 0.494118, 0, 0, 0, 0.494118)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_66gbq"]
+gradient = SubResource("Gradient_yhn2w")
+
+[node name="Plate" type="Area2D" groups=["interactables"]]
+script = ExtResource("1_37khj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3.2, 3.2)
+shape = SubResource("RectangleShape2D_64l4r")
+
+[node name="PlateSprite" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = SubResource("AtlasTexture_oaxqo")
+
+[node name="Item" parent="." instance=ExtResource("3_fsu8i")]
+
+[node name="DebugSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(0.25, 64)
+texture = SubResource("GradientTexture1D_66gbq")
+
+[node name="PlateLogic" type="Node" parent="."]
+script = ExtResource("2_e1rp4")

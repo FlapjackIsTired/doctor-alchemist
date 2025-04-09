@@ -12,7 +12,7 @@ func _ready() -> void:
 		node.connect("player_interacted", _on_player_interacted)
 	$Timer.connect("timeout", _on_timer_timeout)
 	
-func _on_player_interacted(player_id: int, interactable_id: int, item: Item) -> void:
+func _on_player_interacted(player_id: int, interactable_id: int, item: Item, element) -> void:
 	# booleans to simplify if statements
 	var interactable_is_correct = get_extractor().interactable_id == interactable_id
 	if !interactable_is_correct: return
@@ -32,14 +32,14 @@ func _on_player_interacted(player_id: int, interactable_id: int, item: Item) -> 
 	if item_is_compatible:
 		# start the grinder if the timer is stopped and the grinder has no item
 		if $Timer.is_stopped() && item_is_none && player_item_is_some:
-			emit_signal("extractor_started", player_id, interactable_id, get_node("../Item").duplicate())
+			emit_signal("extractor_started", player_id, interactable_id, get_node("../Item").duplicate(), get_node("../Item").element)
 			$Timer.start()
 			var old_item = get_node("../Item")
 			handle_item_change(old_item, item)
 		# finish the grinder if the timer has stopped and the item is processed
 		elif $Timer.is_stopped() && item_is_processed:
 			var old_item = get_node("../Item")
-			emit_signal("extractor_finished", player_id, interactable_id, old_item.duplicate())
+			emit_signal("extractor_finished", player_id, interactable_id, old_item.duplicate(), old_item.element)
 			handle_item_change(old_item, item)
 		# in all other cases don't allow the player to interact
 		else: return

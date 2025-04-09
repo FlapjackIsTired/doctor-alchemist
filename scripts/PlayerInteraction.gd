@@ -1,6 +1,6 @@
 extends Node
 
-signal player_interacted(player_id, interactable_id, item)
+signal player_interacted(player_id, interactable_id, item, element)
 
 var player_id : int
 var interacting_with = {}
@@ -42,11 +42,12 @@ func _input(event: InputEvent) -> void:
 		0:
 			if event.is_action_pressed("interact_player0") and interacting_with.has(player_id):
 				for id in interacting_with[player_id]:
-					emit_signal("player_interacted", player_id, id, item)
+					emit_signal("player_interacted", player_id, id, item, item.element)
 		1:
 			if event.is_action_pressed("interact_player1") and interacting_with.has(player_id):
 				for id in interacting_with[player_id]:
 					emit_signal("player_interacted", player_id, id, item)
+
 
 #region Signal Functions
 
@@ -73,7 +74,7 @@ func _on_interact_ended(player: int, interactable: int) -> void:
 	if interacting_with.has(player) and interacting_with[player].is_empty():
 		interacting_with.erase(player)
 
-func _on_item_collected(id: int, _interactable_id: int, item: Item):
+func _on_item_collected(id: int, _interactable_id: int, item: Item, element: Array):
 	var old_item = get_node("../HandHitbox/Item")
 	if get_player().player_id == id:
 		var index = old_item.get_index()
@@ -83,8 +84,10 @@ func _on_item_collected(id: int, _interactable_id: int, item: Item):
 		item.name = "Item"
 		get_hand_hitbox().add_child(item)
 		get_hand_hitbox().move_child(item, index)
-		# print(get_node("../HandHitbox/Item").get_children())
+		item.element = element
 		get_node("../HandHitbox/Item").update_item_icon()
+		#emit_signal("player_plate_element", player_id, old_item, old_item.element)# item.element)
+
 
 	
 #endregion

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://brlji35ivitew"]
+[gd_scene load_steps=13 format=4 uid="uid://brlji35ivitew"]
 
 [ext_resource type="TileSet" uid="uid://b2gkxfodiww6e" path="res://resources/DrAlchemistSpritesheet.tres" id="1_aohd4"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_ewm4p"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/FPSLabel.gd" id="8_5gut6"]
 [ext_resource type="PackedScene" uid="uid://mc5offyj85y8" path="res://scenes/energy_extractor.tscn" id="8_spgs5"]
 [ext_resource type="PackedScene" uid="uid://dc4ernrptw40u" path="res://scenes/cauldron.tscn" id="9_sb7pp"]
+[ext_resource type="Script" path="res://scripts/Daytimer.gd" id="12_afxtg"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ewm4p")
@@ -173,3 +174,12 @@ visible = false
 offset_right = 128.0
 offset_bottom = 64.0
 script = ExtResource("8_5gut6")
+
+[node name="DayTimer" type="Label" parent="."]
+offset_left = 496.0
+offset_top = 8.0
+offset_right = 784.0
+offset_bottom = 61.0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("12_afxtg")

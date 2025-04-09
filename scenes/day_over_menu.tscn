@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://btyavi7ps13b4"]
+
+[ext_resource type="Script" path="res://scripts/report_title.gd" id="1_eyr2r"]
+[ext_resource type="Script" path="res://scripts/p2_info.gd" id="2_am0xd"]
+[ext_resource type="Script" path="res://scripts/p1_info.gd" id="2_ihgoo"]
+[ext_resource type="Script" path="res://scripts/both_info.gd" id="2_kqxqc"]
+[ext_resource type="Script" path="res://scripts/continue_button.gd" id="3_sucij"]
+
+[sub_resource type="Gradient" id="Gradient_xvsi4"]
+offsets = PackedFloat32Array(0.12963, 0.856481)
+colors = PackedColorArray(0.0741, 0.20046, 0.39, 1, 0.3195, 0.4757, 0.71, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ric4t"]
+noise_type = 5
+frequency = 0.001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_onq6r"]
+color_ramp = SubResource("Gradient_xvsi4")
+noise = SubResource("FastNoiseLite_ric4t")
+
+[sub_resource type="LabelSettings" id="LabelSettings_oo6m7"]
+font_size = 56
+
+[sub_resource type="Texture2DRD" id="Texture2DRD_b6eud"]
+
+[node name="DayOverMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_onq6r")
+
+[node name="ReportTitle" type="Label" parent="TextureRect"]
+layout_mode = 2
+offset_left = 248.0
+offset_top = 56.0
+offset_right = 1024.0
+offset_bottom = 133.0
+label_settings = SubResource("LabelSettings_oo6m7")
+horizontal_alignment = 1
+script = ExtResource("1_eyr2r")
+
+[node name="CenterCont" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -568.0
+offset_right = 219.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BothInfo" type="Label" parent="TextureRect/CenterCont"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+autowrap_mode = 3
+script = ExtResource("2_kqxqc")
+
+[node name="Bottom-CenterCont" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -207.0
+offset_top = -220.0
+offset_right = 207.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="ContinueButton" type="Button" parent="TextureRect/Bottom-CenterCont"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 26
+icon = SubResource("Texture2DRD_b6eud")
+script = ExtResource("3_sucij")
+
+[node name="Right-CenterCont" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 2
+anchor_left = 0.837
+anchor_top = 1.0
+anchor_right = 0.837
+anchor_bottom = 1.0
+offset_left = -199.36
+offset_top = -568.0
+offset_right = 200.64
+offset_bottom = -282.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="P2Info" type="Label" parent="TextureRect/Right-CenterCont"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+autowrap_mode = 3
+script = ExtResource("2_am0xd")
+
+[node name="Left-CenterCont" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.179
+anchor_top = 1.0
+anchor_right = 0.179
+anchor_bottom = 1.0
+offset_left = -221.12
+offset_top = -568.0
+offset_right = 205.88
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="P1Info" type="Label" parent="TextureRect/Left-CenterCont"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+autowrap_mode = 3
+script = ExtResource("2_ihgoo")
+
+[connection signal="pressed" from="TextureRect/Bottom-CenterCont/ContinueButton" to="TextureRect/Bottom-CenterCont/ContinueButton" method="_on_pressed"]

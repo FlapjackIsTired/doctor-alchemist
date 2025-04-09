@@ -2,17 +2,17 @@
 
 [ext_resource type="Script" path="res://scripts/TitleScreen.gd" id="1_40k4u"]
 
-[sub_resource type="Gradient" id="Gradient_xo1e7"]
+[sub_resource type="Gradient" id="Gradient_38gua"]
 offsets = PackedFloat32Array(0.12963, 0.856481)
 colors = PackedColorArray(0.0741, 0.20046, 0.39, 1, 0.3195, 0.4757, 0.71, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_d76y1"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_47twc"]
 noise_type = 5
 frequency = 0.001
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gosn8"]
-color_ramp = SubResource("Gradient_xo1e7")
-noise = SubResource("FastNoiseLite_d76y1")
+color_ramp = SubResource("Gradient_38gua")
+noise = SubResource("FastNoiseLite_47twc")
 
 [sub_resource type="LabelSettings" id="LabelSettings_k1n2n"]
 font_size = 56

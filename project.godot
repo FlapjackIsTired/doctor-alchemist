@@ -20,6 +20,7 @@ boot_splash/show_image=false
 [autoload]
 
 Globals="*res://scripts/Globals.gd"
+TransitionScreen="*res://scenes/transition_screen.tscn"
 
 [debug]
 

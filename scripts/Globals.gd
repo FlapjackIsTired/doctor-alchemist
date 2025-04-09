@@ -57,6 +57,27 @@ var itemTotals = {
 	ItemID.LIZARDS_TAIL: 99,
 }
 
+#creates the day counter
+var day = 1
+
+#allows the day to change
+var day_incremented = false
+
+
+"""
+0 - Player 1
+1 - Player 2
+doing it like this just in case the equivalent of potions{player_id} is necessary - B
+"""
+#for statistics
+
+var potions0 = 0
+var potions1 = 0
+var slimes0 = 0
+var slimes1 = 0
+var thrown0 = 0
+var thrown1 = 0
+
 func ready():
 	none_item = Item.new()
 	none_item.set_item_id(ItemID.NONE)

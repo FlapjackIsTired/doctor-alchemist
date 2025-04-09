@@ -103,5 +103,3 @@ func get_cauldron():
 	else:
 		printerr("GrinderLogic doesn't have a valid parent node")
 		return null
-		
-

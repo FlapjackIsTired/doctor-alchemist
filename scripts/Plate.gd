@@ -2,17 +2,20 @@ extends Node
 
 signal plate_full(player_id, interactable_id, item)
 
+var var_item
+
 func _ready() -> void:
+	var_item = get_node("../Item")
 	var players = get_tree().get_nodes_in_group("player_interaction")
 	for node in players:
 		node.connect("player_interacted", _on_player_interacted)
 
-func _on_player_interacted(player_id: int, interactable_id: int, item: Item) -> void:
+func _on_player_interacted(player_id: int, interactable_id: int, item: Item, element) -> void:
 	# save old item
 	var old_item = get_node("../Item")
 	# make sure the correct plate is being edited
 	if get_plate().interactable_id == interactable_id:
-		emit_signal("plate_full", player_id, interactable_id, old_item.duplicate())
+		emit_signal("plate_full", player_id, interactable_id, old_item.duplicate(), old_item.element)
 		
 		# remove old item from node tree
 		var index = old_item.get_index()
@@ -23,6 +26,9 @@ func _on_player_interacted(player_id: int, interactable_id: int, item: Item) -> 
 		item.name = "Item"
 		get_plate().add_child(item)
 		get_plate().move_child(item, index)
+		#item.element = var_element
+		get_node("../Item").element = element
+		get_node("../Item").update_item_icon()
 	# cancel the process on all other plates
 	else:
 		return

@@ -8,11 +8,25 @@ func _ready() -> void:
 		node.connect("player_interacted", _on_player_interacted)
 
 func _on_player_interacted(player_id: int, interactable_id: int, item: Item) -> void:
+	
+	
 	# make sure the correct plate is being edited
 	if get_crate().interactable_id == interactable_id:
+		
+		
+		
 		# if the player isnt holding an item and there is stock of items, emit the crate_opened signal
 		if item.item_id != Globals.ItemID.NONE:
 			emit_signal("garbage_clicked", player_id, interactable_id, get_node("../Item").duplicate())
+			
+			#update stats!
+			if player_id == 0:
+				Globals.thrown0 += 1
+			elif player_id == 1:
+				Globals.thrown1 += 1
+			else:
+				print("I recieved ", player_id , "As a player id. This should be 1 or 0.")
+			
 		else: return
 	else:
 		return

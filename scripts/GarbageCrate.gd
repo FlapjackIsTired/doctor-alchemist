@@ -7,12 +7,12 @@ func _ready() -> void:
 	for node in players:
 		node.connect("player_interacted", _on_player_interacted)
 
-func _on_player_interacted(player_id: int, interactable_id: int, item: Item) -> void:
+func _on_player_interacted(player_id: int, interactable_id: int, item: Item, element) -> void:
 	# make sure the correct plate is being edited
 	if get_crate().interactable_id == interactable_id:
 		# if the player isnt holding an item and there is stock of items, emit the crate_opened signal
 		if item.item_id != Globals.ItemID.NONE:
-			emit_signal("garbage_clicked", player_id, interactable_id, get_node("../Item").duplicate())
+			emit_signal("garbage_clicked", player_id, interactable_id, get_node("../Item").duplicate(), get_node("../Item").element)
 		else: return
 	else:
 		return

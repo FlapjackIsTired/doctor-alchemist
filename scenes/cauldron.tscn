@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dc4ernrptw40u"]
+[gd_scene load_steps=12 format=3 uid="uid://dc4ernrptw40u"]
 
 [ext_resource type="Script" path="res://scripts/Interactable.gd" id="1_h2ni6"]
 [ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="2_e2w5f"]
@@ -18,6 +18,15 @@ colors = PackedColorArray(0, 0, 0, 0.494118, 0, 0, 0, 0.494118)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_66gbq"]
 gradient = SubResource("Gradient_yhn2w")
 
+[sub_resource type="Gradient" id="Gradient_clqw2"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7oxok"]
+gradient = SubResource("Gradient_clqw2")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="Cauldron" type="Area2D" groups=["interactables"]]
 texture_filter = 1
 script = ExtResource("1_h2ni6")
@@ -34,8 +43,6 @@ texture = SubResource("AtlasTexture_oaxqo")
 visible = false
 
 [node name="OutputItem" parent="." instance=ExtResource("3_d475f")]
-position = Vector2(0, 32)
-item_id = 12
 
 [node name="DebugSprite" type="Sprite2D" parent="."]
 visible = false
@@ -59,3 +66,14 @@ offset_bottom = 29.0
 max_value = 1.0
 show_percentage = false
 script = ExtResource("5_bcuxi")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PrimaryLight" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(-7.15256e-06, 1.90735e-06)
+scale = Vector2(2, 2)
+energy = 1.21
+texture = SubResource("GradientTexture2D_7oxok")

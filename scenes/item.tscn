@@ -1,7 +1,59 @@
-[gd_scene load_steps=3 format=3 uid="uid://bok265y4iiu2w"]
+[gd_scene load_steps=11 format=3 uid="uid://bok265y4iiu2w"]
 
 [ext_resource type="Script" path="res://scripts/Item.gd" id="1_h8sa1"]
 [ext_resource type="Texture2D" uid="uid://bopk06t4b5nub" path="res://resources/DrAlchemistSpritesheet.png" id="2_ulb60"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dat5c"]
+atlas = ExtResource("2_ulb60")
+region = Rect2(768, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyb2b"]
+atlas = ExtResource("2_ulb60")
+region = Rect2(768, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8brsi"]
+atlas = ExtResource("2_ulb60")
+region = Rect2(800, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m6qs"]
+atlas = ExtResource("2_ulb60")
+region = Rect2(736, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6car5"]
+atlas = ExtResource("2_ulb60")
+region = Rect2(800, 160, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4iemu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dat5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyb2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8brsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m6qs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6car5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_r8jsi"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y7xf2"]
+gradient = SubResource("Gradient_r8jsi")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="Item" type="Node2D"]
 script = ExtResource("1_h8sa1")
@@ -9,3 +61,17 @@ spritesheet = ExtResource("2_ulb60")
 
 [node name="ItemSprite" type="Sprite2D" parent="."]
 texture_filter = 1
+
+[node name="FirstElement" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(32, -12)
+sprite_frames = SubResource("SpriteFrames_4iemu")
+
+[node name="SecondElement" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(32, 12)
+sprite_frames = SubResource("SpriteFrames_4iemu")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+enabled = false
+texture = SubResource("GradientTexture2D_y7xf2")

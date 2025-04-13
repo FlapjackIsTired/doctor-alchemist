@@ -44,22 +44,28 @@ func update_item_icon() -> void:
 		Globals.ItemID.POTION:
 			match element[0]:
 				Globals.ElementalType.FIRE:
-					set_item_icon(Rect2(Vector2(832, 192), Vector2(64,64)))
+					#set_item_icon(Rect2(Vector2(832, 192), Vector2(64,64)))
+					get_sprite_and_name(7, "Fire Potion")
 					set_item_name("Fire Potion")
 				Globals.ElementalType.ELECTRIC:
-					set_item_icon(Rect2(Vector2(960, 192), Vector2(64,64)))
+					#set_item_icon(Rect2(Vector2(960, 192), Vector2(64,64)))
+					get_sprite_and_name(9, "Electric Potion")
 					set_item_name("Electric Potion")
 				Globals.ElementalType.WATER:
-					set_item_icon(Rect2(Vector2(896, 192), Vector2(64,64)))
+					#set_item_icon(Rect2(Vector2(896, 192), Vector2(64,64)))
+					get_sprite_and_name(8, "Water Potion")
 					set_item_name("Water Potion")
 				Globals.ElementalType.WIND:
-					set_item_icon(Rect2(Vector2(1024, 192), Vector2(64,64)))
+					#set_item_icon(Rect2(Vector2(1024, 192), Vector2(64,64)))
+					get_sprite_and_name(10, "Wind Potion")
 					set_item_name("Wind Potion")
 				Globals.ElementalType.EARTH:
-					set_item_icon(Rect2(Vector2(1088, 192), Vector2(64,64)))
+					#set_item_icon(Rect2(Vector2(1088, 192), Vector2(64,64)))
+					get_sprite_and_name(11, "Earth Potion")
 					set_item_name("Earth Potion")
 				_:
-					set_item_icon(Rect2(Vector2(1024, 192), Vector2(64,64)))
+					#set_item_icon(Rect2(Vector2(1024, 192), Vector2(64,64)))
+					get_sprite_and_name(1, "Void Potion")
 					set_item_name("Void Potion")
 		_:
 			set_item_icon(Rect2(Vector2(0,0), Vector2(0,0)))
@@ -71,6 +77,33 @@ func get_sprite_and_name(sprite_num: float, new_item_name: String):
 	if !processed: set_item_icon(Rect2(Vector2(x, 0), Vector2(64,64)))
 	if processed: set_item_icon(Rect2(Vector2(x, 64), Vector2(64,64)))
 	set_item_name(new_item_name)
+	if item_id == Globals.ItemID.POTION:
+		print("element is " , element)
+		set_item_icon(Rect2(Vector2(x, 128), Vector2(64,64)))
+		var count = 0
+		for i in element:
+			count = count + 1
+			if count == 1:
+			# this si for the split potion idea, var y = 448 + (64 * (i +5 - 1)) OR var y = 448 + (64 * (i +5)) if you want full accuracy
+				$FirstElement.visible = true
+				$FirstElement.frame = i
+			else:
+				$SecondElement.visible = true
+				$SecondElement.frame = i
+		$PointLight2D.enabled = true
+		match element[0]:
+			Globals.ElementalType.FIRE:
+				$PointLight2D.set_color(Color.RED)
+			Globals.ElementalType.WATER:
+				$PointLight2D.set_color(Color.BLUE)
+			Globals.ElementalType.ELECTRIC:
+				$PointLight2D.set_color(Color.YELLOW)
+			Globals.ElementalType.WIND:
+				$PointLight2D.set_color(Color.WHITE)
+			Globals.ElementalType.EARTH:
+				$PointLight2D.set_color(Color.GREEN)
+		#	_:
+				#element = [Globals.ElementalType.VOID]
 
 func set_item_icon(region: Rect2) -> void:
 	var atlas = AtlasTexture.new()
@@ -78,6 +111,14 @@ func set_item_icon(region: Rect2) -> void:
 	atlas.region = region
 	$ItemSprite.texture = atlas
 	
+func set_potion_elemental(region: Rect2):
+	var atlas = AtlasTexture.new()
+	atlas.atlas = spritesheet
+	atlas.region = region
+	$SecondaryItemSprite.texture = atlas
+	#$SecondaryItemSprite.scale.y = -1
+
+		
 func set_item_name(n: String) -> void:
 	item_name = n
 	

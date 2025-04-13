@@ -80,14 +80,14 @@ func _on_item_collected(id: int, _interactable_id: int, item: Item, element: Arr
 		var index = old_item.get_index()
 		get_hand_hitbox().remove_child(old_item)
 		old_item.queue_free()
-		
+		print(item.item_name, " " , item.item_id)
 		item.name = "Item"
 		get_hand_hitbox().add_child(item)
 		get_hand_hitbox().move_child(item, index)
 		item.element = element
+		if item.item_id == Globals.ItemID.NONE:
+			item.processed = false
 		get_node("../HandHitbox/Item").update_item_icon()
-		#emit_signal("player_plate_element", player_id, old_item, old_item.element)# item.element)
-
 
 	
 #endregion

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://brlji35ivitew"]
+[gd_scene load_steps=18 format=4 uid="uid://brlji35ivitew"]
 
 [ext_resource type="TileSet" uid="uid://b2gkxfodiww6e" path="res://resources/DrAlchemistSpritesheet.tres" id="1_aohd4"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_ewm4p"]
@@ -12,6 +12,30 @@
 [ext_resource type="PackedScene" uid="uid://mc5offyj85y8" path="res://scenes/energy_extractor.tscn" id="8_spgs5"]
 [ext_resource type="PackedScene" uid="uid://dc4ernrptw40u" path="res://scenes/cauldron.tscn" id="9_sb7pp"]
 [ext_resource type="Script" path="res://scripts/Daytimer.gd" id="12_afxtg"]
+
+[sub_resource type="Environment" id="Environment_83uc8"]
+background_mode = 3
+glow_enabled = true
+glow_levels/3 = 2.0
+glow_bloom = 0.1
+glow_blend_mode = 0
+glow_hdr_threshold = 0.32
+
+[sub_resource type="Gradient" id="Gradient_d78g8"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1smfp"]
+gradient = SubResource("Gradient_d78g8")
+fill = 1
+
+[sub_resource type="Gradient" id="Gradient_8t8wb"]
+offsets = PackedFloat32Array(0.356522, 0.921739)
+colors = PackedColorArray(0, 0, 0, 1, 0.775063, 0.775063, 0.775063, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e667g"]
+gradient = SubResource("Gradient_8t8wb")
+fill = 1
+fill_from = Vector2(0.570552, 0.54908)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ewm4p")
@@ -183,3 +207,23 @@ offset_bottom = 61.0
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("12_afxtg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_83uc8")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(1275, 0)
+color = Color(0.294609, 0.291703, 0.435455, 1)
+blend_mode = 2
+shadow_enabled = true
+
+[node name="Lighting Option 1" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(430.5, 286.5)
+scale = Vector2(13.2656, 9.01563)
+texture = SubResource("GradientTexture2D_1smfp")
+
+[node name="Lighting Option 2" type="PointLight2D" parent="."]
+position = Vector2(697.5, 434.5)
+scale = Vector2(21.6406, 13.5781)
+texture = SubResource("GradientTexture2D_e667g")

@@ -1,15 +1,17 @@
 extends Node
 
-signal cauldron_started(player_id, interactable_id, item)
-signal cauldron_finished(player_id, interactable_id, item)
+signal cauldron_started(player_id, interactable_id, item, element)
+signal cauldron_finished(player_id, interactable_id, item, element)
 signal show_caul_inv()
 signal hide_caul_inv()
 
 var storage = 0
 var output_item 
+var stock_cauldron
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var output_item = $"../OutputItem"
+	stock_cauldron = get_node("..").get_children(true)
 	var players = get_tree().get_nodes_in_group("player_interaction")
 	for node in players:
 		node.connect("player_interacted", _on_player_interacted)
@@ -22,19 +24,18 @@ func _on_player_interacted(player_id, interactable_id, item, element):
 	#all input items are valid
 	#var _cauldron_inputs = get_node("../InputItems").get_children() # For DEBUG purposes
 	output_item = $"../OutputItem"
-	if $Timer.is_stopped() and output_item.item_id == Globals.ItemID.NONE:
-		if interactable_is_correct and $Timer.is_stopped() and storage < 2:
+	if item.processed == true and interactable_is_correct and $Timer.is_stopped() and output_item.item_id == Globals.ItemID.NONE:
+		if item.processed == true and interactable_is_correct and $Timer.is_stopped() and storage < 2:
 		
 			#item becomes child node of InputItems
 			add_input_item(item)
 			storage += 1
+			item.item_id = Globals.ItemID.NONE
+			$"../RichTextLabel".text = "1/2"
 			emit_signal("show_caul_inv")
-		
-		#this thing isn't connected. I'm unsure where garbage_clicked originates atm..
-		#if I have time tmmrow I'll trace with debugging
-			#emit_signal("garbage_clicked",player_id, interactable_id, item)
-		
-		if interactable_is_correct and $Timer.is_stopped() and storage == 2:
+			var elements = [6,6]
+			emit_signal("cauldron_started", player_id, interactable_id, item.duplicate(), elements)
+		if item.processed == true and interactable_is_correct and $Timer.is_stopped() and storage == 2:
 		
 			#item becomes child node of InputItems
 			add_input_item(item)
@@ -44,11 +45,15 @@ func _on_player_interacted(player_id, interactable_id, item, element):
 		else: return
 		if not item.processed: return
 		if not output_is_some: pass
-	if $Timer.is_stopped() and output_item.item_id == Globals.ItemID.POTION:
-		var old_item = get_node("../OutputItem")
-		emit_signal("cauldron_finished", player_id, interactable_id, old_item.duplicate(), old_item.element)
-		handle_item_change(old_item, item)
-
+	if interactable_is_correct and $Timer.is_stopped() and output_item.item_id == Globals.ItemID.POTION: #and item.item.id == Globals.ItemID.NONE:
+		if item.item_id == Globals.ItemID.NONE:
+			$"../PrimaryLight".enabled = false
+			get_node("../OutputItem/PointLight2D").enabled = false
+			var old_item = get_node("../OutputItem")
+			emit_signal("cauldron_finished", player_id, interactable_id, old_item.duplicate(), old_item.element)
+			handle_item_change(old_item, item)
+			output_item.visible = false
+		
 #Idk why this is here, dont think its too important but i am slightly scared to delete it! -Armaan
 	#elif $"../OutputItem".item_id == Globals.ItemID.POTION and $Timer.is_stopped() and storage == 0:
 		#print("Player " + str(player_id) + " interacted with potion")
@@ -57,6 +62,8 @@ func _on_player_interacted(player_id, interactable_id, item, element):
 		#$"../OutputItem".item_id = Globals.ItemID.NONE
 	
 func _on_timer_timeout():
+	#$"../Primary Light".enabled = true
+	$"../PrimaryLight".enabled = true
 	var output_item = get_node("../OutputItem")
 	var primary_type = get_node("../InputItems/Item1").element[0]
 	var secondary_type = get_node("../InputItems/Item3").element[0]
@@ -80,6 +87,8 @@ func handle_item_change(old_item: Item, new_item: Item):
 		new_item.name = "OutputItem"
 		get_cauldron().add_child(new_item)
 		get_cauldron().move_child(new_item, index)
+	#	if new_item.item_id == Globals.ItemID.NONE:
+			#new_item.visible = false
 		output_item.item_id = Globals.ItemID.NONE
 		output_item.update_item_icon()
 
@@ -103,3 +112,4 @@ func get_cauldron():
 	else:
 		printerr("GrinderLogic doesn't have a valid parent node")
 		return null
+		
